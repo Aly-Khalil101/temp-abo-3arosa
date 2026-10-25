@@ -1,0 +1,1181 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap");
+
+:root {
+  color-scheme: dark;
+  --green-950: #101d19;
+  --green-900: #172b24;
+  --green-800: #21392f;
+  --green-700: #2c483b;
+  --gold: #c9ad70;
+  --gold-light: #ecdcb2;
+  --gold-shadow: #8a6e3f;
+  --ivory: #f4eddf;
+  --paper: #f8f1e3;
+  --ink: #29372f;
+  --muted-ink: #6a6d5c;
+  --line: rgba(190, 157, 94, 0.58);
+  --shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+  color-scheme: only light;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--green-950);
+  color: var(--ivory);
+  font-family: "Cairo", Tahoma, sans-serif;
+}
+button {
+  font: inherit;
+}
+button:focus-visible {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 5px;
+}
+
+.experience {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: 34px 20px 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 30%,
+      rgba(72, 102, 79, 0.29),
+      transparent 48%
+    ),
+    linear-gradient(145deg, #14251e 0%, #1a3027 44%, #101c18 100%);
+}
+.experience::before,
+.experience::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid rgba(201, 173, 112, 0.12);
+  border-radius: 50%;
+}
+.experience::before {
+  width: 720px;
+  height: 720px;
+  inset: 10% auto auto 50%;
+  transform: translateX(-50%);
+}
+.experience::after {
+  width: 600px;
+  height: 600px;
+  inset: 14% auto auto 50%;
+  transform: translateX(-50%);
+}
+.ambient {
+  position: absolute;
+  z-index: -1;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.17;
+  pointer-events: none;
+}
+.ambient--one {
+  top: 22%;
+  left: 4%;
+  background: #7c9a68;
+}
+.ambient--two {
+  right: 3%;
+  bottom: 10%;
+  background: #927247;
+}
+
+.intro {
+  width: min(100%, 760px);
+  margin: 0 auto 18px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  font-family: "Amiri", serif;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+}
+.eyebrow-line {
+  display: block;
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.eyebrow-line:last-child {
+  transform: rotate(180deg);
+}
+.intro h1 {
+  color: var(--ivory);
+  margin: 0;
+  font-family: "Amiri", serif;
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+.intro h1 span {
+  display: inline-block;
+  color: var(--gold-light);
+}
+.intro-copy {
+  margin: 5px 0 0;
+  color: #c8cabb;
+  font-size: 0.95rem;
+}
+
+/* Floating music control: music starts with the door-opening click; the button toggles play/pause. */
+.music-toggle {
+  position: fixed;
+  z-index: 30;
+  left: max(18px, env(safe-area-inset-left));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(236, 220, 178, 0.88);
+  border-radius: 50%;
+  color: #f3e2b5;
+  background: linear-gradient(145deg, #2b4939, #14251d);
+  box-shadow:
+    0 7px 22px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 3px rgba(201, 173, 112, 0.13);
+  cursor: pointer;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+.music-toggle[hidden] {
+  display: none;
+}
+.music-toggle:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #fff0c7;
+}
+.music-toggle:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.music-toggle:focus-visible {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 5px;
+}
+.music-icon {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+}
+.music-speaker {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.1;
+}
+.music-wave {
+  opacity: 0.9;
+  transform-origin: 14px 12px;
+}
+.music-toggle.is-playing .music-wave--outer {
+  animation: audio-wave 1.3s ease-in-out infinite;
+}
+.music-toggle.is-playing .music-wave--inner {
+  animation: audio-wave 0.9s ease-in-out infinite;
+}
+.music-mute-mark {
+  display: none;
+}
+.music-toggle.is-muted {
+  color: #9fa697;
+  border-color: rgba(159, 166, 151, 0.62);
+  background: linear-gradient(145deg, #26342d, #111b17);
+  box-shadow:
+    0 5px 16px rgba(0, 0, 0, 0.22),
+    inset 0 0 0 3px rgba(159, 166, 151, 0.08);
+  cursor: pointer;
+}
+.music-toggle.is-muted .music-wave {
+  display: none;
+}
+.music-toggle.is-muted .music-mute-mark {
+  display: block;
+  stroke: #e6cfa0;
+}
+
+@keyframes audio-wave {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.opening-scene {
+  width: min(100%, 960px);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.door-scene {
+  position: relative;
+  width: 100%;
+  min-height: 495px;
+  display: grid;
+  place-items: start center;
+  perspective: 1500px;
+}
+.door-halo {
+  position: absolute;
+  top: 30px;
+  width: 340px;
+  height: 420px;
+  background: radial-gradient(
+    ellipse,
+    rgba(210, 181, 119, 0.13),
+    transparent 68%
+  );
+  filter: blur(16px);
+  transition: opacity 0.7s ease;
+}
+
+/* The invitation remains completely hidden until the door has opened. */
+.invitation-card {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  z-index: 1;
+  width: min(610px, calc(100vw - 34px));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 24px) scale(0.965);
+  border-radius: 4px;
+  background:
+    radial-gradient(
+        circle at 1px 1px,
+        rgba(130, 103, 58, 0.055) 0.7px,
+        transparent 0.9px
+      )
+      0 0 / 8px 8px,
+    linear-gradient(145deg, #fff8e9 0%, var(--paper) 55%, #f0e2c8 100%);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transition:
+    opacity 0.75s ease,
+    transform 0.85s cubic-bezier(0.2, 0.75, 0.25, 1),
+    visibility 0s linear 0.85s;
+}
+.card-border {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid var(--line);
+}
+.card-border--outer {
+  inset: 10px;
+}
+.card-border--inner {
+  inset: 16px;
+  border-color: rgba(190, 157, 94, 0.27);
+}
+.card-content {
+  position: relative;
+  padding: 28px clamp(16px, 4vw, 35px) 27px;
+  text-align: center;
+}
+/* Learning note: change these values to resize the paper seal. Keep them equal for a perfect circle. */
+.family-emblem {
+  --emblem-width: 86px;
+  --emblem-height: 86px;
+  /* Practice: try 1.05 to make the rosette 5% wider, or 0.95 to make it narrower. */
+  --rosette-scale-x: 1;
+  --rosette-scale-y: 1;
+  width: var(--emblem-width);
+  height: var(--emblem-height);
+  position: relative;
+  margin: 0 auto 12px;
+  display: grid;
+  place-items: center;
+  color: #9b7b42;
+}
+.emblem-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.emblem-rosette {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(var(--rosette-scale-x), var(--rosette-scale-y));
+}
+.emblem-rosette-outline {
+  opacity: 0.92;
+}
+.emblem-flower {
+  opacity: 0.86;
+}
+.emblem-word {
+  font-family: "Amiri", serif;
+  font-weight: 700;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+.emblem-caption {
+  position: absolute;
+  bottom: -8px;
+  font-size: 0.55rem;
+  background: var(--paper);
+  padding: 0 6px;
+  color: #88724d;
+}
+.card-kicker {
+  font-family: "Amiri", serif;
+  font-size: 1rem;
+  margin: 5px 0 3px;
+  color: #76613d;
+}
+.card-family-title {
+  margin: 0;
+  font:
+    700 clamp(1.7rem, 4.7vw, 2.45rem)/1.45 "Amiri",
+    serif;
+  color: #263b30;
+}
+.card-family-title span {
+  color: #8a6936;
+}
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: min(300px, 90%);
+  margin: 9px auto 13px;
+  color: #a98b51;
+}
+.ornament-divider span {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, #bd9b5e);
+}
+.ornament-divider span:last-child {
+  transform: rotate(180deg);
+}
+.ornament-divider b {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.invitation-intro {
+  margin: 0 0 16px;
+  color: #596352;
+  font:
+    1.07rem/1.8 "Amiri",
+    serif;
+}
+.host-name {
+  position: relative;
+  width: min(390px, 100%);
+  margin: 0 auto 20px;
+  padding: 9px 12px 12px;
+  border-top: 1px solid rgba(163, 127, 66, 0.55);
+  border-bottom: 1px solid rgba(163, 127, 66, 0.55);
+}
+.host-label {
+  display: inline-block;
+  padding: 0 10px;
+  color: #8a744c;
+  font-size: 0.78rem;
+  background: var(--paper);
+  transform: translateY(-2px);
+}
+.host-name h3 {
+  margin: 0;
+  color: #20392d;
+  font:
+    700 clamp(1.6rem, 4.6vw, 2.2rem)/1.5 "Amiri",
+    serif;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  margin: 0 auto 12px;
+  color: #80643a;
+}
+.section-heading h3 {
+  margin: 0;
+  font:
+    700 1.18rem "Amiri",
+    serif;
+  white-space: nowrap;
+}
+.heading-line {
+  width: min(90px, 16vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b99b66);
+}
+.heading-line:last-child {
+  transform: rotate(180deg);
+}
+.name-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.name-box {
+  min-height: 49px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 8px;
+  border: 1px solid rgba(167, 132, 73, 0.48);
+  background: rgba(255, 255, 255, 0.3);
+  color: #334237;
+  font:
+    700 clamp(0.91rem, 2vw, 1.08rem)/1.55 "Amiri",
+    serif;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.24);
+}
+.name-box::before,
+.name-box::after {
+  content: "✦";
+  position: absolute;
+  color: rgba(148, 112, 57, 0.56);
+  font-size: 0.55rem;
+  top: 4px;
+}
+.name-box::before {
+  right: 5px;
+}
+.name-box::after {
+  left: 5px;
+}
+.name-index {
+  color: #a38a60;
+  font:
+    600 0.62rem "Cairo",
+    sans-serif;
+  align-self: center;
+}
+.name-box--solo {
+  grid-column: 1 / -1;
+  width: min(68%, 310px);
+  justify-self: center;
+}
+.invitation-closing {
+  margin: 17px 0 15px;
+  color: #795e32;
+  font:
+    700 1.14rem "Amiri",
+    serif;
+}
+.event-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 8px;
+  border: 1px solid rgba(167, 132, 73, 0.42);
+  background: rgba(255, 255, 255, 0.28);
+}
+.detail-icon {
+  font-size: 0.95rem;
+  color: #a38249;
+}
+.detail-label {
+  color: #89734c;
+  font-size: 0.78rem;
+}
+.detail-box strong {
+  font:
+    700 0.92rem "Amiri",
+    serif;
+  color: #354338;
+}
+.personal-note {
+  margin: 16px 0 0;
+  font:
+    1.1rem "Amiri",
+    serif;
+  color: #7c6136;
+}
+
+.door-frame {
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  left: 50%;
+  width: 304px;
+  height: 438px;
+  transform: translateX(-50%);
+  border: 7px solid #aa8952;
+  border-bottom-width: 10px;
+  border-radius: 155px 155px 3px 3px / 145px 145px 3px 3px;
+  background: #4a3a25;
+  box-shadow:
+    0 0 0 2px #463a28,
+    0 0 0 5px rgba(205, 175, 111, 0.45),
+    0 22px 42px rgba(0, 0, 0, 0.42);
+  transition:
+    opacity 0.65s ease,
+    transform 0.8s ease;
+}
+.frame-topline {
+  position: absolute;
+  inset: 8px 8px auto;
+  height: 34px;
+  border: 1px solid rgba(239, 217, 166, 0.52);
+  border-bottom: 0;
+  border-radius: 140px 140px 0 0 / 110px 110px 0 0;
+}
+.frame-inner {
+  position: absolute;
+  inset: 50px 8px 8px;
+  border: 1px solid rgba(239, 217, 166, 0.45);
+  border-bottom: 0;
+}
+.frame-base {
+  position: absolute;
+  bottom: -9px;
+  left: -10px;
+  right: -10px;
+  height: 13px;
+  background: linear-gradient(#d1b578, #82663e);
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.35);
+}
+
+.door-leaf {
+  position: absolute;
+  z-index: 4;
+  top: 21px;
+  left: 50%;
+  width: 274px;
+  height: 413px;
+  overflow: hidden;
+  transform: translateX(-50%);
+  transform-origin: 9% 50%;
+  border: 2px solid #d2b578;
+  border-radius: 140px 140px 2px 2px / 132px 132px 2px 2px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 35px,
+      rgba(10, 22, 17, 0.13) 36px,
+      transparent 39px
+    ),
+    linear-gradient(
+      100deg,
+      #334f3f 0%,
+      #263e32 26%,
+      #355342 53%,
+      #20382c 78%,
+      #2c4638 100%
+    );
+  box-shadow:
+    inset 0 0 0 5px rgba(11, 27, 20, 0.6),
+    inset 0 0 0 7px rgba(204, 177, 117, 0.7),
+    9px 3px 16px rgba(0, 0, 0, 0.28);
+  transition:
+    transform 1.05s cubic-bezier(0.54, 0.02, 0.2, 1),
+    opacity 0.5s ease 0.65s;
+  backface-visibility: hidden;
+}
+.door-arch-inlay {
+  position: absolute;
+  inset: 16px 16px 14px;
+  border: 1px solid rgba(228, 202, 150, 0.65);
+  border-radius: 125px 125px 1px 1px / 118px 118px 1px 1px;
+  pointer-events: none;
+}
+.door-panel {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  border: 1px solid rgba(223, 193, 132, 0.57);
+  box-shadow:
+    inset 0 0 0 3px rgba(14, 31, 23, 0.28),
+    0 0 0 1px rgba(13, 28, 21, 0.22);
+  display: grid;
+  place-items: center;
+}
+.door-panel--top {
+  top: 55px;
+  height: 102px;
+  border-radius: 80px 80px 3px 3px / 70px 70px 3px 3px;
+}
+.door-panel--middle {
+  top: 169px;
+  height: 105px;
+}
+.door-panel--bottom {
+  bottom: 25px;
+  height: 102px;
+}
+.panel-flower {
+  color: #d7ba7d;
+  font-size: 1.8rem;
+  opacity: 0.8;
+}
+.panel-vertical-line {
+  position: absolute;
+  height: 54px;
+  width: 1px;
+  bottom: 7px;
+  background: linear-gradient(transparent, #c0a46c, transparent);
+}
+.panel-diamond {
+  width: 43px;
+  height: 43px;
+  border: 1px solid rgba(222, 190, 126, 0.8);
+  transform: rotate(45deg);
+  box-shadow:
+    0 0 0 6px rgba(201, 173, 112, 0.08),
+    inset 0 0 0 6px rgba(201, 173, 112, 0.08);
+}
+.door-handle {
+  position: absolute;
+  top: 51%;
+  right: 20px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #dfc48b;
+  background: #9b7944;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(17, 31, 23, 0.35);
+}
+.family-seal {
+  position: absolute;
+  z-index: 5;
+  top: 54%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  color: #f4dfae;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at 33% 26%,
+      rgba(255, 255, 255, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(circle, #8e2e29 0%, #70201f 63%, #4e1918 100%);
+  box-shadow:
+    0 5px 8px rgba(0, 0, 0, 0.38),
+    inset 0 0 0 2px #d5b77a,
+    inset 0 0 0 6px #752621,
+    inset 0 0 0 7px rgba(230, 201, 142, 0.78);
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    opacity 0.35s ease;
+}
+.family-seal::before,
+.family-seal::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(227, 196, 136, 0.6);
+  border-radius: 43% 57% 51% 49% / 54% 44% 56% 46%;
+  pointer-events: none;
+}
+.family-seal::after {
+  inset: 14px;
+  transform: rotate(35deg);
+  opacity: 0.7;
+}
+.family-seal {
+  animation: seal-attention 2.8s ease-in-out infinite;
+}
+.family-seal:hover {
+  filter: brightness(1.13);
+}
+.family-seal:active {
+  transform: translate(-50%, -48%) scale(0.96);
+}
+.seal-shine {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.seal-shine::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -65%;
+  width: 42%;
+  transform: skewX(-22deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 245, 210, 0.44),
+    transparent
+  );
+  animation: seal-shimmer 3.4s ease-in-out 1s infinite;
+}
+.seal-word {
+  position: relative;
+  z-index: 3;
+  font:
+    700 1.92rem/1.1 "Amiri",
+    serif;
+  text-shadow: 0 1px 2px #3b100f;
+}
+.seal-subtitle {
+  position: relative;
+  z-index: 3;
+  margin-top: 4px;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+}
+.seal-crack {
+  position: absolute;
+  z-index: 4;
+  width: 2px;
+  height: 0;
+  background: #f4dfae;
+  opacity: 0;
+  transform-origin: top;
+}
+.seal-crack--one {
+  top: 19px;
+  left: 54px;
+  transform: rotate(23deg);
+}
+.seal-crack--two {
+  top: 52px;
+  right: 23px;
+  transform: rotate(-43deg);
+}
+
+.opening-hint {
+  position: relative;
+  margin: -1px 0 10px;
+  text-align: center;
+  color: #d6c7a3;
+  font-size: 0.9rem;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+.opening-hint .click-hint-span {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.opening-status {
+  min-height: 1.5em;
+  margin: 0;
+  text-align: center;
+  color: var(--gold-light);
+  font-size: 0.86rem;
+}
+/* A discreet, elegant maker's signature at the bottom of the invitation page. */
+.page-footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 760px);
+  gap: 0;
+  margin: 32px auto 0;
+  padding: 20px 12px 7px;
+  color: #b7b7a5;
+  text-align: center;
+}
+.page-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(360px, 72%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 173, 112, 0.62),
+    transparent
+  );
+}
+.footer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 5px;
+}
+.footer-motto {
+  margin: 0;
+  color: var(--gold-light);
+  font:
+    700 1.12rem/1.5 "Amiri",
+    serif;
+}
+.footer-ornament {
+  color: #b99b62;
+  font-size: 0.7rem;
+}
+.footer-signature {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 9px;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.9;
+}
+.footer-creator {
+  color: #f0e5ca;
+  font-weight: 700;
+}
+.footer-separator {
+  color: #aa8e58;
+}
+.footer-brand {
+  color: #d6c39a;
+}
+.silah-span {
+  font-weight: bold;
+  color: wheat;
+  font-size: 0.9rem;
+}
+.footer-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 5px 0 0;
+  color: #a9ad9d;
+  font-size: 0.78rem;
+}
+.footer-contact a {
+  color: var(--gold-light);
+  direction: ltr;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(236, 220, 178, 0.4);
+  padding-bottom: 1px;
+  letter-spacing: 0.025em;
+}
+.footer-contact a:hover {
+  color: #fff2cc;
+  border-bottom-color: #fff2cc;
+}
+.replay-button {
+  display: block;
+  margin: 18px auto 0;
+  padding: 10px 20px;
+  color: #2b3a2d;
+  background: linear-gradient(135deg, #ead7a9, #c7a96a);
+  border: 1px solid #f0dfb7;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+.replay-button[hidden] {
+  display: none;
+}
+
+/* Motion sequence: crack the seal, open the door, then reveal the family diwan. */
+.door-scene.is-opening .family-seal {
+  animation: seal-break 0.48s ease-in forwards;
+}
+.door-scene.is-opening .seal-shine::before {
+  animation: none;
+  opacity: 0;
+}
+.door-scene.is-opening .seal-crack {
+  animation: crack-mark 0.35s ease-out 0.12s forwards;
+}
+.door-scene.is-opening .door-leaf {
+  transform: translateX(-50%) rotateY(-104deg);
+}
+.door-scene.is-open .door-leaf {
+  opacity: 0;
+  pointer-events: none;
+}
+.door-scene.is-open .door-frame {
+  opacity: 0;
+  transform: translateX(-50%) scale(0.98);
+}
+.door-scene.is-open .door-halo {
+  opacity: 0;
+}
+.door-scene.is-revealed {
+  min-height: 0;
+  display: block;
+  padding-bottom: 12px;
+}
+.door-scene.is-revealed .invitation-card {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  position: relative;
+  top: 0;
+  left: auto;
+  margin: 0 auto;
+  transform: translate(0, 0) scale(1);
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s cubic-bezier(0.2, 0.75, 0.25, 1),
+    visibility 0s;
+}
+.door-scene.is-revealed .door-frame,
+.door-scene.is-revealed .door-leaf {
+  display: none;
+}
+.door-scene.is-revealed .door-halo {
+  display: none;
+}
+.door-scene.is-revealed .invitation-card {
+  animation: card-rise 0.9s cubic-bezier(0.16, 0.78, 0.2, 1) both;
+}
+.door-scene.is-revealed .card-content {
+  animation: ink-appear 1s ease 0.22s both;
+}
+.experience.has-opened .opening-hint {
+  opacity: 0;
+  transform: translateY(-8px);
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+@keyframes seal-attention {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    filter: brightness(1);
+    box-shadow:
+      0 5px 8px rgba(0, 0, 0, 0.38),
+      0 0 0 0 rgba(213, 183, 122, 0),
+      inset 0 0 0 2px #d5b77a,
+      inset 0 0 0 6px #752621,
+      inset 0 0 0 7px rgba(230, 201, 142, 0.78);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.035);
+    filter: brightness(1.13);
+    box-shadow:
+      0 5px 8px rgba(0, 0, 0, 0.38),
+      0 0 0 9px rgba(213, 183, 122, 0.08),
+      0 0 26px 5px rgba(201, 173, 112, 0.28),
+      inset 0 0 0 2px #e5c991,
+      inset 0 0 0 6px #752621,
+      inset 0 0 0 7px rgba(230, 201, 142, 0.9);
+  }
+}
+@keyframes seal-shimmer {
+  0%,
+  22% {
+    left: -65%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.85;
+  }
+  54%,
+  100% {
+    left: 125%;
+    opacity: 0;
+  }
+}
+@keyframes seal-break {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(-50%, -50%) scale(1.09) rotate(-9deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.55) rotate(17deg);
+    opacity: 0;
+  }
+}
+@keyframes crack-mark {
+  to {
+    height: 32px;
+    opacity: 0.95;
+  }
+}
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes ink-appear {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 720px) {
+  .experience {
+    padding-top: 38px;
+  }
+  .intro {
+    margin-bottom: 12px;
+  }
+  .door-scene {
+    min-height: 495px;
+  }
+  .name-grid {
+    gap: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .experience {
+    padding: 25px 12px 22px;
+  }
+  .intro {
+    margin-bottom: 10px;
+  }
+  .intro-copy {
+    font-size: 0.85rem;
+  }
+  .music-toggle {
+    width: 48px;
+    height: 48px;
+  }
+  .music-icon {
+    width: 23px;
+    height: 23px;
+  }
+  .door-scene {
+    min-height: 470px;
+  }
+  .door-frame {
+    width: 278px;
+    height: 415px;
+  }
+  .door-leaf {
+    width: 250px;
+    height: 391px;
+  }
+  .door-panel {
+    left: 24px;
+    right: 24px;
+  }
+  .door-panel--top {
+    top: 51px;
+  }
+  .door-panel--middle {
+    top: 162px;
+  }
+  .door-panel--bottom {
+    bottom: 22px;
+  }
+  .family-seal {
+    width: 120px;
+    height: 120px;
+  }
+  .name-grid {
+    gap: 6px;
+  }
+  .name-box {
+    min-height: 46px;
+    padding: 8px 5px;
+    gap: 5px;
+    font-size: 0.98rem;
+  }
+  .name-index {
+    font-size: 0.57rem;
+  }
+  .name-box--solo {
+    width: 80%;
+  }
+  .event-details {
+    gap: 7px;
+  }
+  .detail-box strong {
+    font-size: 0.84rem;
+  }
+  .page-footer {
+    margin-top: 26px;
+    padding-top: 16px;
+  }
+  .footer-motto {
+    font-size: 1.03rem;
+  }
+  .footer-signature {
+    gap: 2px 7px;
+    font-size: 0.74rem;
+  }
+  .footer-contact {
+    font-size: 0.74rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .family-seal {
+    animation: none;
+  }
+  .seal-shine::before {
+    display: none;
+  }
+}
